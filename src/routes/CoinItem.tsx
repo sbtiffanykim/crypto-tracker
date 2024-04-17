@@ -37,7 +37,6 @@ const Wrapper = styled.div`
 `;
 
 function CoinItem({ ...coin }: ICoinItem) {
-  console.log(coin);
   return (
     <Link to={`/${coin.id}`} state={coin.name}>
       <Coin>
