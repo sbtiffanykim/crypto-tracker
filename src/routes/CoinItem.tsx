@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,11 +12,10 @@ interface ICoinItem {
 }
 
 const Coin = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.theme.textColor};
   color: ${(props) => props.theme.bgColor};
   padding: 15px;
-  margin-bottom: 8px;
-  border-radius: 8px;
+  border-radius: 2px;
   transition: color 0.2s ease-in-out;
   display: block;
   &:hover {
@@ -42,10 +40,10 @@ function CoinItem({ ...coin }: ICoinItem) {
       <Coin>
         <Wrapper>
           <CoinImg src={coin.image} alt={coin.id} />
-          <div>{coin.name}</div>
+          <h1>{coin.name}</h1>
         </Wrapper>
-        <div>$ {coin.current_price}</div>
-        <div>{coin.price_change_24h.toFixed(5)}</div>
+        <h2>$ {coin.current_price}</h2>
+        <div>{coin.price_change_24h.toFixed(4)}</div>
         <div>{coin.price_change_percentage_24h.toFixed(2)}%</div>
       </Coin>
     </Link>
