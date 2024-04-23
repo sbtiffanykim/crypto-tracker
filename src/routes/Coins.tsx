@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import CoinItem from './CoinItem';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCoins } from '../api';
+import { useSetRecoilState } from 'recoil';
+import { isDarkAtom } from '../atoms';
+import { MoonIcon, SunIcon } from '@heroicons/react/16/solid';
 
 const Container = styled.div`
   margin: 20px;
@@ -12,6 +15,51 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const DarkModeBtn = styled.div`
+  display: flex;
+  .toggleBtn {
+    /* opacity: 0; */
+    /* position: absolute; */
+  }
+  label {
+    background-color: ${(props) => props.theme.surface_mixed_300};
+    display: flex;
+    height: 25px;
+    width: 50px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px;
+    border-radius: 45px;
+  }
+`;
+
+const LightModeIcon = styled(SunIcon)`
+  height: 17px;
+  width: 17px;
+  color: #f1c40f;
+`;
+const DarkModeIcon = styled(MoonIcon)`
+  height: 17px;
+  width: 17px;
+  color: #f1c40f;
+`;
+
+const ToggleSwitch = styled.div`
+  background-color: #ffffff;
+  margin: 2px;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  border-radius: 50%;
+  &:hover {
+    cursor: pointer;
+    border: 2px solid ${(props) => props.theme.primary_400};
+    transition: border 0.2s linear;
+  }
+  &:active {
+  }
 `;
 
 const CoinsList = styled.ul`
@@ -29,7 +77,7 @@ const Title = styled.h1`
 const Loader = styled.div``;
 
 // // only use for the dev purpose
-// const coins = [
+// const data = [
 //   {
 //     id: 'bitcoin',
 //     symbol: 'btc',
@@ -135,12 +183,28 @@ function Coins() {
     queryKey: ['allCoins'],
     queryFn: fetchCoins,
   });
+  // const isLoading = false;
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((current) => !current);
 
   return (
     <Container>
       <Header>
         <Title>Coins</Title>
       </Header>
+      <DarkModeBtn>
+        <input
+          type='checkbox'
+          name='toggleBtn'
+          className='toggleBtn'
+          onChange={toggleDarkAtom}
+        />
+        <label htmlFor='toggleBtn'>
+          <DarkModeIcon className='h-6 w-6 text-gray-500' />
+          <LightModeIcon className='h-6 w-6 text-gray-500' />
+          <ToggleSwitch />
+        </label>
+      </DarkModeBtn>
       {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (

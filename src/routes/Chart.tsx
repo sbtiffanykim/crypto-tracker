@@ -2,12 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchCoinHistory } from '../api';
 import ApexChart from 'react-apexcharts';
 import { useOutletContext } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 interface IOutletProps {
   coinId?: string;
 }
 
 function Chart() {
+  const isDark = useRecoilValue(isDarkAtom);
+
   const coinId = useOutletContext() as IOutletProps;
   // data: ['timestamp', 'open', 'high', 'low', 'close']
   const { isLoading, data } = useQuery({

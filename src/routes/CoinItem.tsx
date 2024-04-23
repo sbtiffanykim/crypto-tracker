@@ -12,14 +12,14 @@ interface ICoinItem {
 }
 
 const Coin = styled.div`
-  background-color: ${(props) => props.theme.textColor};
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.surface_mixed_200};
+  color: ${(props) => props.theme.surface_mixed_600};
   padding: 15px;
   border-radius: 2px;
   transition: color 0.2s ease-in-out;
   display: block;
   &:hover {
-    color: ${(props) => props.theme.accentColor};
+    color: ${(props) => props.theme.primary_500};
   }
 `;
 
