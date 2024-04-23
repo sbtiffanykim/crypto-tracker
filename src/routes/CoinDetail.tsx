@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { ArrowTrendingUpIcon, ArrowTrendingDownIcon } from '@heroicons/react/16/solid';
 import { fetchCoinDetail } from '../api';
 import { useQuery } from '@tanstack/react-query';
-import Chart from './Chart';
-import Price from './Price';
 
 interface IRouteParams {
   coinId?: string;
@@ -183,7 +181,9 @@ const RightDetailWrap = styled.div`
   margin-bottom: 7px;
 `;
 
-const Charts = styled(Box)``;
+const Charts = styled(Box)`
+  height: 50vh;
+`;
 
 const Tabs = styled.div`
   margin: 20px 0px;
@@ -317,16 +317,12 @@ function CoinDetail() {
       <Charts>
         <Tabs>
           <Tab isActive={priceMatch !== null}>
-            <Link to={`/${coinId}/price`}>
-              <Price />
-            </Link>
+            <Link to={`/${coinId}/price`}>Price</Link>
           </Tab>
           <Tab isActive={chartMatch !== null}>
-            <Link to={`/${coinId}/chart`}>
-              <Chart coinId={coinId} />
-            </Link>
+            <Link to={`/${coinId}/chart`}>Chart</Link>
           </Tab>
-          <Outlet />
+          <Outlet context={coinId} />
         </Tabs>
       </Charts>
 

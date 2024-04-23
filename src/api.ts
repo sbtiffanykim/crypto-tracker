@@ -13,7 +13,7 @@ export function fetchCoinDetail(coinId: string | undefined) {
 }
 
 export function fetchCoinHistory(coinId: string | undefined) {
-  return fetch(`${BASE_URL}/${coinId}/ohlc?vs_currency=usd&days=365`).then((response) =>
+  return fetch(`${BASE_URL}/${coinId}/ohlc?vs_currency=usd&days=1`).then((response) =>
     response.json()
   );
 }
